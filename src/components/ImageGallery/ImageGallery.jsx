@@ -1,10 +1,16 @@
-// import PropTypes from 'prop-types';
+import PropTypes from 'prop-types';
 import { ImageGalleryItem } from './ImageGalleryItem/ImageGalleryItem';
 
-export const ImageGallery = () => {
+export const ImageGallery = ({ children, onClick }) => {
   return (
     <ul className="gallery">
-      <ImageGalleryItem />
+      <ImageGalleryItem onClick={onClick} />
+      {children}
     </ul>
   );
+};
+
+ImageGallery.propTypes = {
+  children: PropTypes.any,
+  onClick: PropTypes.func.isRequired,
 };
