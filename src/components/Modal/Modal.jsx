@@ -10,6 +10,20 @@ export class Modal extends Component {
     onClose: PropTypes.func.isRequired,
   };
 
+  componentDidMount() {
+    window.addEventListener('keydown', this.hendleKeyDown);
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener('keydown', this.hendleKeyDown);
+  }
+
+  hendleKeyDown = e => {
+    if (e.code === 'Escape') {
+      this.props.onClose();
+    }
+  };
+
   render() {
     return createPortal(
       <Overlay>
