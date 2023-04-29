@@ -24,9 +24,15 @@ export class Modal extends Component {
     }
   };
 
+  hendleBackdropClick = e => {
+    if (e.currentTarget === e.target) {
+      this.props.onClose();
+    }
+  };
+
   render() {
     return createPortal(
-      <Overlay>
+      <Overlay onClick={this.hendleBackdropClick}>
         <ModalContent>{this.props.children}</ModalContent>
       </Overlay>,
       modalRoot
