@@ -5,7 +5,6 @@ import { Loader } from './Loader/Loader';
 import { Searchbar } from './Searchbar/Searchbar';
 import { Section } from './Section/Section';
 import { Modal } from './Modal/Modal';
-import { IconButton } from './IconButton/IconButton';
 
 export class App extends Component {
   state = {
@@ -22,9 +21,8 @@ export class App extends Component {
 
     return (
       <>
-        <Searchbar>
-          <IconButton aria-label="Search button"></IconButton>
-        </Searchbar>
+        <Searchbar />
+
         <Section>
           <ImageGallery onClick={this.toggleModal}>
             {showModal && (

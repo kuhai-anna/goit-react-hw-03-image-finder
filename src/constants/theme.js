@@ -1,6 +1,7 @@
 export const theme = {
   colors: {
     text: '#212121',
+    icons: '#212121',
     textAccent: '#ffffff',
     textError: '#ff6b6b',
     bgd: '#f4f4f4',
