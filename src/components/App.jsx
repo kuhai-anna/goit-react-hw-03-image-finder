@@ -11,6 +11,11 @@ export class App extends Component {
     showModal: false,
   };
 
+  // відкриття та закриття модалки
+  toggleModal = () => {
+    this.setState(({ showModal }) => ({ showModal: !showModal }));
+  };
+
   render() {
     const { showModal } = this.state;
 
