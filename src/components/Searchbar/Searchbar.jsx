@@ -12,7 +12,6 @@ export const Searchbar = () => {
         <Form className="form">
           <IconContext.Provider
             value={{
-              color: '#212121',
               size: '20px',
             }}
           >
