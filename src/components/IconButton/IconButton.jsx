@@ -1,9 +1,10 @@
 import PropTypes from 'prop-types';
+import { Button } from './IconButton.styled';
 
 export const IconButton = ({ children, onClick, ...allyProps }) => (
-  <button type="button" onClick={onClick} {...allyProps}>
+  <Button type="button" onClick={onClick} {...allyProps}>
     {children}
-  </button>
+  </Button>
 );
 
 IconButton.defoultProps = {
