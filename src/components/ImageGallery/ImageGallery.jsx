@@ -3,6 +3,7 @@ import { Component } from 'react';
 import { ThreeDots } from 'react-loader-spinner';
 import { ImageGalleryItem } from './ImageGalleryItem/ImageGalleryItem';
 import { fetchImagesWithQuery } from '../../services/image-api';
+import { ImageGalleryFallbackView } from './ImageGalleryErrorView';
 
 export class ImageGallery extends Component {
   static = {
@@ -35,9 +36,6 @@ export class ImageGallery extends Component {
           throw new Error(
             'Sorry, there are no images matching your search query. Please try again.'
           );
-          // alert(
-          //   'Sorry, there are no images matching your search query. Please try again.'
-          // );
         }
       } catch (error) {
         this.setState({ error, status: 'rejected' });
@@ -78,7 +76,11 @@ export class ImageGallery extends Component {
     }
 
     if (status === 'rejected') {
-      return <p>Whoops, something went wrong. {error.message}</p>;
+      return (
+        <ImageGalleryFallbackView
+          message={`Whoops, something went wrong. ${error.message}`}
+        ></ImageGalleryFallbackView>
+      );
     }
 
     if (status === 'resolved') {
