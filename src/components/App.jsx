@@ -19,6 +19,10 @@ export class App extends Component {
     showModal: false,
   };
 
+  handleFormSubmit = searchQuery => {
+    this.setState({ ...searchQuery });
+  };
+
   // передача посилання на активну картинку
   selectedImg = largeImageURL => {
     // const { images } = this.state;
