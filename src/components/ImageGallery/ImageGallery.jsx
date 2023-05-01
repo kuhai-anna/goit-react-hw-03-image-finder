@@ -14,8 +14,8 @@ export class ImageGallery extends Component {
   state = {
     images: [],
     totalHits: null,
-    isLoading: false,
     error: null,
+    status: 'idle',
     // selectedImg: null,
   };
 
@@ -24,12 +24,12 @@ export class ImageGallery extends Component {
     const nextQuery = this.props.searchQuery;
 
     if (prevQuery !== nextQuery) {
-      this.setState({ isLoading: true, images: [] });
+      this.setState({ status: 'pending' });
 
       try {
         const { hits, totalHits } = await fetchImagesWithQuery(nextQuery);
 
-        this.setState({ images: hits, totalHits });
+        this.setState({ images: hits, totalHits, status: 'resolved' });
 
         if (hits.length === 0) {
           throw new Error(
@@ -40,16 +40,14 @@ export class ImageGallery extends Component {
           // );
         }
       } catch (error) {
-        this.setState({ error });
-      } finally {
-        this.setState({ isLoading: false });
+        this.setState({ error, status: 'rejected' });
       }
     }
   }
 
   render() {
     const { onClick, children } = this.props;
-    const { images, error, isLoading, status } = this.state;
+    const { images, error, status } = this.state;
 
     const loaderParams = {
       color: '#c2014ef4',
@@ -65,32 +63,40 @@ export class ImageGallery extends Component {
       // backgroundColor: '#d9effff4',
     };
 
-    return (
-      <>
-        {error && <p>Whoops, something went wrong. {error.message}</p>}
-        {isLoading && (
-          <ThreeDots
-            {...loaderParams}
-            wrapperStyle={loaderWrapperStyle}
-            visible={true}
-          />
-        )}
-        {images.length > 0 && (
-          <ul className="gallery">
-            {images.map(({ id, webformatURL, largeImageURL, tags }) => (
-              <ImageGalleryItem
-                key={id}
-                webformatURL={webformatURL}
-                largeImageURL={largeImageURL}
-                tags={tags}
-                onClick={onClick}
-              />
-            ))}
-            {children}
-          </ul>
-        )}
-      </>
-    );
+    if (status === 'idle') {
+      return <p>Enter your search query in the search field.</p>;
+    }
+
+    if (status === 'pending') {
+      return (
+        <ThreeDots
+          {...loaderParams}
+          wrapperStyle={loaderWrapperStyle}
+          visible={true}
+        />
+      );
+    }
+
+    if (status === 'rejected') {
+      return <p>Whoops, something went wrong. {error.message}</p>;
+    }
+
+    if (status === 'resolved') {
+      return (
+        <ul className="gallery">
+          {images.map(({ id, webformatURL, largeImageURL, tags }) => (
+            <ImageGalleryItem
+              key={id}
+              webformatURL={webformatURL}
+              largeImageURL={largeImageURL}
+              tags={tags}
+              onClick={onClick}
+            />
+          ))}
+          {children}
+        </ul>
+      );
+    }
   }
 }
 
