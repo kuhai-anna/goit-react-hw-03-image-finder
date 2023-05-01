@@ -5,10 +5,33 @@ import { Formik, Form, Field } from 'formik';
 // import * as yup from 'yup';
 import { IconButton } from 'components/IconButton/IconButton';
 
-export const Searchbar = () => {
+const initialValues = {
+  searchQuery: '',
+};
+
+export const Searchbar = ({ onSubmit }) => {
+  // пошук зображення
+  const searchImage = (values, { resetForm }) => {
+    if (values.searchQuery.trim() === '') {
+      alert('Enter a search query!');
+      resetForm();
+
+      return;
+    }
+
+    onSubmit({
+      ...values,
+    });
+
+    // initialValues.searchQuery = values.searchQuery.toLowerCase();
+    // console.log(initialValues.searchQuery);
+
+    resetForm();
+  };
+
   return (
     <header className="searchbar">
-      <Formik>
+      <Formik initialValues={initialValues} onSubmit={searchImage}>
         <Form className="form">
           <IconContext.Provider
             value={{
@@ -21,7 +44,7 @@ export const Searchbar = () => {
           </IconContext.Provider>
 
           <Field
-            className="input"
+            name="searchQuery"
             type="text"
             autoComplete="off"
             autoFocus
