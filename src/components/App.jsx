@@ -19,6 +19,25 @@ export class App extends Component {
     showModal: false,
   };
 
+  async componentDidMount() {
+    this.setState({ isLoading: true });
+
+    try {
+      const { hits, totalHits } = await fetchImagesWithQuery('cat');
+
+      this.setState({ images: hits, totalHits });
+      console.log(this.state.images);
+
+      if (hits.length === 0) {
+        throw new Error();
+      }
+    } catch (error) {
+      this.setState({ error });
+    } finally {
+      this.setState({ isLoading: false });
+    }
+  }
+
   handleFormSubmit = searchQuery => {
     this.setState({ ...searchQuery });
   };
