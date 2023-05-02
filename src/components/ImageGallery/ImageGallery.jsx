@@ -16,6 +16,7 @@ const Status = {
 export class ImageGallery extends Component {
   static = {
     searchQuery: PropTypes.string.isRequired,
+    page: PropTypes.number.isRequired,
     children: PropTypes.any,
     onClick: PropTypes.func.isRequired,
     onSelectImage: PropTypes.func.isRequired,
@@ -31,16 +32,21 @@ export class ImageGallery extends Component {
   async componentDidUpdate(prevProps, _) {
     const prevQuery = prevProps.searchQuery;
     const nextQuery = this.props.searchQuery;
+    const prevPage = prevProps.page;
+    const nextPage = this.props.page;
 
-    if (prevQuery !== nextQuery) {
+    if (prevQuery !== nextQuery || prevPage !== nextPage) {
       this.setState({ status: Status.PENDING });
 
       try {
-        const { hits, totalHits } = await fetchImagesWithQuery(nextQuery);
+        const { hits, totalHits } = await fetchImagesWithQuery(
+          nextQuery,
+          nextPage
+        );
         const { viewLoadMoreBtn } = this.props;
 
-        this.setState({ images: hits, status: 'resolved' });
-        viewLoadMoreBtn(totalHits); //прередає загальну кулькусть знайдених картинок
+        this.setState({ images: hits, status: Status.RESOLVED });
+        viewLoadMoreBtn(totalHits); //прередача загальної кількості знайдених картинок
 
         if (hits.length === 0) {
           throw new Error(
@@ -57,10 +63,13 @@ export class ImageGallery extends Component {
     const { onClick, onSelectImage, children } = this.props;
     const { images, error, status } = this.state;
 
+    // рендер компонентів в залежності від статусу
     if (status === 'idle') {
       return (
         <ImageGalleryIdleView
-          message={'Enter your search query in the search field.'}
+          message={
+            'Here you can search for images. To do this, enter your query in the search field.'
+          }
         />
       );
     }
