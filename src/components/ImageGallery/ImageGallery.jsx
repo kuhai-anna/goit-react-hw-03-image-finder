@@ -4,7 +4,7 @@ import { ImageGalleryItem } from './ImageGalleryItem/ImageGalleryItem';
 import { fetchImagesWithQuery } from '../../services/image-api';
 import { ImageGalleryErrorView } from './ImageGalleryErrorView';
 import { ImageGalleryIdleView } from './ImageGalleryIdleView';
-import { ImageGalleryPendingView } from './ImageGalleryPendingView';
+import { Loader } from 'components/Loader/Loader';
 
 export class ImageGallery extends Component {
   static = {
@@ -57,7 +57,7 @@ export class ImageGallery extends Component {
     }
 
     if (status === 'pending') {
-      return <ImageGalleryPendingView />;
+      return <Loader />;
     }
 
     if (status === 'rejected') {
