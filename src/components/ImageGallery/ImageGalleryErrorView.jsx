@@ -1,20 +1,15 @@
 import PropTypes from 'prop-types';
-import errorImage from '../../images/blue-cube-optim.jpeg';
+import errorImage from '../../images/sad-danbo-optim.jpeg';
 
-export const ImageGalleryFallbackView = ({ message }) => {
+export const ImageGalleryErrorView = ({ message }) => {
   return (
-    <div
-      role="alert"
-      // style={{
-      //   backgroundImage: errorImage,
-      // }}
-    >
-      <img src={errorImage} alt="" />
+    <div role="alert">
+      <img src={errorImage} alt="" height="" />
       <p>{message}</p>
     </div>
   );
 };
 
-ImageGalleryFallbackView.propTypes = {
+ImageGalleryErrorView.propTypes = {
   message: PropTypes.string.isRequired,
 };
