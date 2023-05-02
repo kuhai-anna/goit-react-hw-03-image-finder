@@ -1,4 +1,4 @@
-// import PropTypes from 'prop-types';
+import PropTypes from 'prop-types';
 import { BsSearch } from 'react-icons/bs';
 import { IconContext } from 'react-icons';
 import { Formik, Form, Field } from 'formik';
@@ -13,13 +13,15 @@ export const Searchbar = ({ onSubmit }) => {
   const searchImage = (values, { resetForm }) => {
     if (values.searchQuery.trim() === '') {
       alert('Enter a search query!');
-      resetForm();
+      resetForm(); //якщо користувач ввів пробіли
 
       return;
     }
 
+    // передача нового запиту оновлення сторінки до 1-ї
     onSubmit({
       ...values,
+      page: 1,
     });
 
     resetForm();
@@ -50,4 +52,8 @@ export const Searchbar = ({ onSubmit }) => {
       </Formik>
     </header>
   );
+};
+
+Searchbar.propTypes = {
+  onSubmit: PropTypes.func.isRequired,
 };
