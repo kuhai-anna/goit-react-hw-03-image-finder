@@ -10,6 +10,7 @@ export class App extends Component {
     searchQuery: '',
     page: 1,
     totalHits: null,
+    lengthArray: 0,
     selectedImg: null,
     showModal: false,
   };
@@ -25,8 +26,8 @@ export class App extends Component {
   };
 
   //прередача загальної кількості знайдених картинок при отриманні результату запиту
-  viewLoadMoreBtn = totalHits => {
-    this.setState({ totalHits });
+  viewLoadMoreBtn = (totalHits, lengthArray) => {
+    this.setState({ totalHits, lengthArray });
   };
 
   // відкриття та закриття модалки
@@ -40,7 +41,14 @@ export class App extends Component {
   };
 
   render() {
-    const { searchQuery, page, totalHits, showModal, selectedImg } = this.state;
+    const {
+      searchQuery,
+      page,
+      lengthArray,
+      totalHits,
+      showModal,
+      selectedImg,
+    } = this.state;
 
     return (
       <>
@@ -59,7 +67,9 @@ export class App extends Component {
               </Modal>
             )}
           </ImageGallery>
-          {totalHits > 12 && <Button onClick={this.loadMoreBtnClick} />}
+          {totalHits > 12 && lengthArray >= 12 && (
+            <Button onClick={this.loadMoreBtnClick} />
+          )}
         </Section>
       </>
     );
