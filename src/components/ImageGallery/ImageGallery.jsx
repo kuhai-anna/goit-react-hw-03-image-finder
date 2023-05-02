@@ -6,19 +6,26 @@ import { ImageGalleryErrorView } from './ImageGalleryErrorView';
 import { ImageGalleryIdleView } from './ImageGalleryIdleView';
 import { Loader } from 'components/Loader/Loader';
 
+const Status = {
+  IDLE: 'idle',
+  PENDING: 'pending',
+  REJECTED: 'rejected',
+  RESOLVED: 'resolved',
+};
+
 export class ImageGallery extends Component {
   static = {
     searchQuery: PropTypes.string.isRequired,
     children: PropTypes.any,
     onClick: PropTypes.func.isRequired,
+    onSelectImage: PropTypes.func.isRequired,
+    viewLoadMoreBtn: PropTypes.func.isRequired,
   };
 
   state = {
     images: [],
-    totalHits: null,
     error: null,
-    status: 'idle',
-    // selectedImg: null,
+    status: Status.IDLE,
   };
 
   async componentDidUpdate(prevProps, _) {
@@ -26,12 +33,14 @@ export class ImageGallery extends Component {
     const nextQuery = this.props.searchQuery;
 
     if (prevQuery !== nextQuery) {
-      this.setState({ status: 'pending' });
+      this.setState({ status: Status.PENDING });
 
       try {
         const { hits, totalHits } = await fetchImagesWithQuery(nextQuery);
+        const { viewLoadMoreBtn } = this.props;
 
-        this.setState({ images: hits, totalHits, status: 'resolved' });
+        this.setState({ images: hits, status: 'resolved' });
+        viewLoadMoreBtn(totalHits); //прередає загальну кулькусть знайдених картинок
 
         if (hits.length === 0) {
           throw new Error(
@@ -39,13 +48,13 @@ export class ImageGallery extends Component {
           );
         }
       } catch (error) {
-        this.setState({ error, status: 'rejected' });
+        this.setState({ error, status: Status.REJECTED });
       }
     }
   }
 
   render() {
-    const { onClick, children } = this.props;
+    const { onClick, onSelectImage, children } = this.props;
     const { images, error, status } = this.state;
 
     if (status === 'idle') {
@@ -78,6 +87,7 @@ export class ImageGallery extends Component {
               largeImageURL={largeImageURL}
               tags={tags}
               onClick={onClick}
+              onSelectImage={onSelectImage}
             />
           ))}
           {children}
