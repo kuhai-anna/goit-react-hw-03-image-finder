@@ -2,7 +2,6 @@
 import { BsSearch } from 'react-icons/bs';
 import { IconContext } from 'react-icons';
 import { Formik, Form, Field } from 'formik';
-// import * as yup from 'yup';
 import { IconButton } from 'components/IconButton/IconButton';
 
 const initialValues = {
@@ -22,9 +21,6 @@ export const Searchbar = ({ onSubmit }) => {
     onSubmit({
       ...values,
     });
-
-    // initialValues.searchQuery = values.searchQuery.toLowerCase();
-    // console.log(initialValues.searchQuery);
 
     resetForm();
   };
