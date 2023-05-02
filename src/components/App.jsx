@@ -8,20 +8,23 @@ import { Button } from './Button/Button';
 export class App extends Component {
   state = {
     searchQuery: '',
+    page: 1,
     totalHits: null,
     selectedImg: null,
     showModal: false,
   };
 
-  handleFormSubmit = searchQuery => {
-    this.setState({ ...searchQuery });
+  // передача пошукового запиту при сабміті форми
+  handleFormSubmit = (searchQuery, page) => {
+    this.setState({ ...searchQuery, ...page });
   };
 
-  // передача посилання на активну картинку
+  // передача посилання на активну картинку при кліку на картинку
   selectedImg = largeImageURL => {
     this.setState({ selectedImg: largeImageURL });
   };
 
+  //прередача загальної кількості знайдених картинок при отриманні результату запиту
   viewLoadMoreBtn = totalHits => {
     this.setState({ totalHits });
   };
@@ -31,8 +34,13 @@ export class App extends Component {
     this.setState(({ showModal }) => ({ showModal: !showModal }));
   };
 
+  // збільшення номеру сторінки при кліку на кнопку
+  loadMoreBtnClick = () => {
+    this.setState({ page: this.state.page + 1 });
+  };
+
   render() {
-    const { searchQuery, totalHits, showModal, selectedImg } = this.state;
+    const { searchQuery, page, totalHits, showModal, selectedImg } = this.state;
 
     return (
       <>
@@ -40,17 +48,18 @@ export class App extends Component {
         <Section>
           <ImageGallery
             searchQuery={searchQuery}
+            page={page}
             onClick={this.toggleModal}
             onSelectImage={this.selectedImg}
             viewLoadMoreBtn={this.viewLoadMoreBtn}
           >
             {showModal && (
               <Modal onClose={this.toggleModal}>
-                <img src={selectedImg} alt="" />
+                <img src={selectedImg} alt="" width="100%" />
               </Modal>
             )}
           </ImageGallery>
-          {totalHits > 12 && <Button />}
+          {totalHits > 12 && <Button onClick={this.loadMoreBtnClick} />}
         </Section>
       </>
     );
