@@ -19,20 +19,3 @@ export const fetchImagesWithQuery = async searchQuery => {
 
   return data;
 };
-
-// export const fetchImagesWithQuery = async searchQuery => {
-//   const response = axios.get(`${BASE_URL}`, {
-//     params: {
-//       key: KEY,
-//       q: `${searchQuery}`,
-//       image_type: 'photo',
-//       orientation: 'horizontal',
-//       safesearch: `true`,
-//       page: '1',
-//       per_page: '12',
-//     },
-//   });
-
-//   // return response.data.hits;
-//   return response.data;
-// };
