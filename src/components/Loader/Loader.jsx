@@ -2,8 +2,8 @@ import { ThreeDots } from 'react-loader-spinner';
 
 export const Loader = () => {
   const loaderParams = {
-    color: '#c2014ef4',
-    // color: '#0171c2f4',
+    color: '#00616ef4',
+    width: '100px',
     ariaLabel: 'three-dots-loading',
   };
 
@@ -11,8 +11,7 @@ export const Loader = () => {
     justifyContent: 'center',
     alignItems: 'center',
     width: '100vw',
-    height: '100vh',
-    // backgroundColor: '#d9effff4',
+    height: '83.6vh',
   };
   return (
     <ThreeDots
