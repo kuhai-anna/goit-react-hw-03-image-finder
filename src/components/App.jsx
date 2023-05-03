@@ -4,6 +4,7 @@ import { Searchbar } from './Searchbar/Searchbar';
 import { Section } from './Section/Section';
 import { Modal } from './Modal/Modal';
 import { Button } from './Button/Button';
+import { ModalImage } from './App.styled';
 
 export class App extends Component {
   state = {
@@ -63,7 +64,7 @@ export class App extends Component {
           >
             {showModal && (
               <Modal onClose={this.toggleModal}>
-                <img src={selectedImg} alt="" width="100%" />
+                <ModalImage src={selectedImg} alt="" />
               </Modal>
             )}
           </ImageGallery>
