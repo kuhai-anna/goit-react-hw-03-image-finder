@@ -1,9 +1,15 @@
-// import PropTypes from 'prop-types';
+import PropTypes from 'prop-types';
+
+import { Container, SectionWrapper } from './Section.styled';
 
 export const Section = ({ children }) => {
   return (
-    <section>
-      <div>{children}</div>
-    </section>
+    <SectionWrapper>
+      <Container>{children}</Container>
+    </SectionWrapper>
   );
+};
+
+Section.propTypes = {
+  children: PropTypes.any.isRequired,
 };
