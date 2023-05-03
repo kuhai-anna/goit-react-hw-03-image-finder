@@ -2,9 +2,10 @@ import PropTypes from 'prop-types';
 import { Component } from 'react';
 import { ImageGalleryItem } from './ImageGalleryItem/ImageGalleryItem';
 import { fetchImagesWithQuery } from '../../services/image-api';
-import { ImageGalleryErrorView } from './ImageGalleryErrorView';
-import { ImageGalleryIdleView } from './ImageGalleryIdleView';
+import { ImageGalleryErrorView } from './ImageGalleryErrorView/ImageGalleryErrorView';
+import { ImageGalleryIdleView } from './ImageGalleryIdleView/ImageGalleryIdleView';
 import { Loader } from 'components/Loader/Loader';
+import { Gallery } from './ImageGallery.styled';
 
 const Status = {
   IDLE: 'idle',
@@ -88,7 +89,7 @@ export class ImageGallery extends Component {
 
     if (status === 'resolved') {
       return (
-        <ul className="gallery">
+        <Gallery className="gallery">
           {images.map(({ id, webformatURL, largeImageURL, tags }) => (
             <ImageGalleryItem
               key={id}
@@ -100,7 +101,7 @@ export class ImageGallery extends Component {
             />
           ))}
           {children}
-        </ul>
+        </Gallery>
       );
     }
   }
