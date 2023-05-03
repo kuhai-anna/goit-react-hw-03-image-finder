@@ -1,8 +1,10 @@
 import PropTypes from 'prop-types';
 import { BsSearch } from 'react-icons/bs';
 import { IconContext } from 'react-icons';
-import { Formik, Form, Field } from 'formik';
+import { Formik } from 'formik';
 import { IconButton } from 'components/IconButton/IconButton';
+import { Header } from './Searchbar.styled';
+import { Form, Field } from './Searchbar.styled';
 
 const initialValues = {
   searchQuery: '',
@@ -28,7 +30,7 @@ export const Searchbar = ({ onSubmit }) => {
   };
 
   return (
-    <header className="searchbar">
+    <Header className="searchbar">
       <Formik initialValues={initialValues} onSubmit={searchImage}>
         <Form className="form">
           <IconContext.Provider
@@ -50,7 +52,7 @@ export const Searchbar = ({ onSubmit }) => {
           />
         </Form>
       </Formik>
-    </header>
+    </Header>
   );
 };
 
