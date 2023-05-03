@@ -1,4 +1,5 @@
 import PropTypes from 'prop-types';
+import { GalleryImage, GalleryItem } from './ImageGalleryItem.styled';
 
 export const ImageGalleryItem = ({
   webformatURL,
@@ -13,9 +14,9 @@ export const ImageGalleryItem = ({
   };
 
   return (
-    <li className="gallery-item">
-      <img src={webformatURL} alt={tags} onClick={handleImageClick} />
-    </li>
+    <GalleryItem className="gallery-item">
+      <GalleryImage src={webformatURL} alt={tags} onClick={handleImageClick} />
+    </GalleryItem>
   );
 };
 
