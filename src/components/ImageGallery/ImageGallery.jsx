@@ -1,18 +1,12 @@
 import PropTypes from 'prop-types';
 import { Component } from 'react';
 import { ImageGalleryItem } from './ImageGalleryItem/ImageGalleryItem';
-import { fetchImagesWithQuery } from '../../services/image-api';
+import { fetchImagesWithQuery } from 'services/image-api';
 import { ImageGalleryErrorView } from './ImageGalleryErrorView/ImageGalleryErrorView';
 import { ImageGalleryIdleView } from './ImageGalleryIdleView/ImageGalleryIdleView';
 import { Loader } from 'components/Loader/Loader';
 import { Gallery } from './ImageGallery.styled';
-
-const Status = {
-  IDLE: 'idle',
-  PENDING: 'pending',
-  REJECTED: 'rejected',
-  RESOLVED: 'resolved',
-};
+import { Status } from 'constants/status';
 
 export class ImageGallery extends Component {
   static = {
