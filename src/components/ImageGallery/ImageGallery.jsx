@@ -54,7 +54,7 @@ export class ImageGallery extends Component {
           }));
         }
 
-        viewLoadMoreBtn(totalHits, hits.length); //прередача загальної кількості знайдених картинок
+        viewLoadMoreBtn(totalHits); //прередача загальної кількості знайдених картинок
 
         if (hits.length === 0) {
           throw new Error(
