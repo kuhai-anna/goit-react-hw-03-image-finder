@@ -45,9 +45,7 @@ export class ImageGallery extends Component {
             images: hits,
             status: Status.RESOLVED,
           });
-        }
-
-        if (prevPage !== nextPage) {
+        } else if (prevPage !== nextPage) {
           this.setState(prevState => ({
             images: [...prevState.images, ...hits],
             status: Status.RESOLVED,
