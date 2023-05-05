@@ -40,7 +40,20 @@ export class ImageGallery extends Component {
         );
         const { viewLoadMoreBtn } = this.props;
 
-        this.setState({ images: hits, status: Status.RESOLVED });
+        if (prevQuery !== nextQuery) {
+          this.setState({
+            images: hits,
+            status: Status.RESOLVED,
+          });
+        }
+
+        if (prevPage !== nextPage) {
+          this.setState(prevState => ({
+            images: [...prevState.images, ...hits],
+            status: Status.RESOLVED,
+          }));
+        }
+
         viewLoadMoreBtn(totalHits, hits.length); //прередача загальної кількості знайдених картинок
 
         if (hits.length === 0) {
